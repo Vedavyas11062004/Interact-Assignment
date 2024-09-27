@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.io Notifications</title>
+  </head>
+  <body>
+    <h1>Notification Example</h1>
+    <button id="notifyButton">Send Notification</button>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      const socket = io();
+      const user_id = "user1";
+      socket.emit("register", user_id);
+
+      socket.on("notification", (message) => {
+        alert("New notification: " + message);
+      });
+      document.getElementById("notifyButton").addEventListener("click", () => {
+        console.log("click");
+        alert("This is a notification triggered by the button!")
+        socket.emit("sendNotification", {
+          user_id: 2,
+          message: "This is a notification triggered by the button!",
+        });
+      });
+    </script>
+  </body>
+</html>
